@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  sessionVersion Int      @default(0)
+  createdAt    DateTime  @default(now())
+  ratings      Rating[]
+  comments     Comment[]
+}
+
+model Country {
+  id             String    @id @default(cuid())
+  slug           String    @unique
+  name           String
+  officialName   String
+  cca2           String?
+  cca3           String    @unique
+  capital        String?
+  region         String
+  subregion      String?
+  continent      String
+  flag           String
+  flagAlt        String?
+  imageUrl       String?
+  imageUrl2      String?
+  facts          String[]
+  population     Int
+  area           Float?
+  languages      String[]
+  currencies     String[]
+  timezones      String[]
+  summary        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  ratings        Rating[]
+  comments       Comment[]
+  @@index([continent])
+  @@index([region])
+  @@index([name])
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  value     Int
+  userId    String
+  countryId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  @@unique([userId, countryId])
+  @@index([countryId])
+}
+
+model Comment {
+  id          String   @id @default(cuid())
+  displayName String
+  body        String
+  fingerprint String?
+  userId      String?
+  countryId   String
+  createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  country     Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  @@index([countryId, createdAt])
+  @@index([fingerprint])
+}
