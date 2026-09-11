@@ -20,7 +20,7 @@ npm run import:countries
 npm run dev
 ```
 
-The client runs at `http://localhost:5173`; the API runs at `http://localhost:4000`.
+The local client runs at `http://localhost:5137`; the local API runs at `http://localhost:4000`. The published frontend URL is `https://geofactss.onrender.com`.
 
 ## Environment
 
@@ -39,4 +39,4 @@ Comments intentionally support anonymous posting. Anonymous submissions are rate
 
 ## Deployment
 
-Build with `npm run build`, run migrations with `npm run db:migrate`, and start the API with `npm run start --workspace server`. Serve `client/dist` from a static host or CDN. Configure HTTPS, a managed PostgreSQL database, a strong secret, an exact CORS origin, and a correctly configured trusted proxy before production. Keep `.env` files private and verify that the database is not publicly exposed. Payments are deliberately not included.
+Build with `npm run build`, run migrations with `npm run db:migrate`, and start the API with `npm run start --workspace server`. For Render, set `NODE_ENV=production`, `CLIENT_URL=https://geofactss.onrender.com`, a unique random `JWT_SECRET` of at least 32 characters, and the production `DATABASE_URL`. Configure `TRUST_PROXY` only if your deployment has a known reverse proxy address. Serve `client/dist` from a static host or CDN, keep `.env` files private, and verify that the database is not publicly exposed. Payments are deliberately not included.
