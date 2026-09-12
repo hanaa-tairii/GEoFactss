@@ -1,5 +1,11 @@
 {
   "version": 2,
   "buildCommand": "npm run db:generate && npm run build --workspace client",
-  "outputDirectory": "client/dist"
+  "outputDirectory": "client/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
