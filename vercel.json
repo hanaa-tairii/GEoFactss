@@ -4,7 +4,23 @@
   "outputDirectory": "client/dist",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/explore",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/countries/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/about",
       "destination": "/index.html"
     }
   ]
